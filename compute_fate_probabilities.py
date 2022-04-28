@@ -55,13 +55,13 @@ def main(argv):
 		if o == '-D': D = float(a)
 
 	#====================================================================================#
-
+	'''
 	if path_to_S == None: print 'Error: You must input a lineage-specific sink matrix using the -S flag'; sys.exit(2)
 	if not os.path.exists(path_to_S):  print 'Error: The file '+path_to_S+' does not exist'; sys.exit(2)
 	if   '.csv' in path_to_S: S = np.loadtxt(path_to_S, delimiter=',')
 	elif '.npy' in path_to_S: S = np.load(path_to_S)
 	else: print 'Error: The lineage-specific sink matrix S must end in ".npy" or ".csv"'; sys.exit(2)
-	
+	'''
 	if path_to_V == None:
 		tmp_path_to_V = '/'.join(path_to_S.split('/')[:-1] + ['V.npy'])
 		if os.path.exists(tmp_path_to_V): V = np.load(tmp_path_to_V)
@@ -84,6 +84,8 @@ def main(argv):
 	V = V / D
 	Vx,Vy = np.meshgrid(V,V)
 	P = A * np.exp(np.minimum(Vy - Vx, 400))
+	np.save("P.npy", P)
+	
 	bigP = np.hstack((P,S))
 	bigP = np.vstack((bigP,np.hstack((np.zeros((S.shape[1],P.shape[1])),np.identity(S.shape[1])))))
 	bigP = row_sum_normalize(bigP)
