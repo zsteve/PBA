@@ -84,20 +84,21 @@ def main(argv):
 	V = V / D
 	Vx,Vy = np.meshgrid(V,V)
 	P = A * np.exp(np.minimum(Vy - Vx, 400))
-	np.save("P.npy", P)
-	
-	bigP = np.hstack((P,S))
-	bigP = np.vstack((bigP,np.hstack((np.zeros((S.shape[1],P.shape[1])),np.identity(S.shape[1])))))
-	bigP = row_sum_normalize(bigP)
+	np.save("P.npy", row_sum_normalize(P))
+	return 
 
-	
-	# compute fundamental matrix
-	print 'Computing fundamental matrix'
-	Q  = bigP[:P.shape[0],:P.shape[0]]
-	RR = bigP[:P.shape[0],P.shape[0]:]
-	B = np.linalg.solve(np.identity(Q.shape[0])-Q,RR)
-	outpath = '/'.join(path_to_S.split('/')[:-1] + ['B.npy'])
-	np.save(outpath,B)
+	# bigP = np.hstack((P,S))
+	# bigP = np.vstack((bigP,np.hstack((np.zeros((S.shape[1],P.shape[1])),np.identity(S.shape[1])))))
+	# bigP = row_sum_normalize(bigP)
+
+	# 
+	# # compute fundamental matrix
+	# print 'Computing fundamental matrix'
+	# Q  = bigP[:P.shape[0],:P.shape[0]]
+	# RR = bigP[:P.shape[0],P.shape[0]:]
+	# B = np.linalg.solve(np.identity(Q.shape[0])-Q,RR)
+	# outpath = '/'.join(path_to_S.split('/')[:-1] + ['B.npy'])
+	# np.save(outpath,B)
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
