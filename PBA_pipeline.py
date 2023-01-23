@@ -73,7 +73,7 @@ def main(argv):
 	# command = 'python compute_mean_first_passage_times.py  -R '+path_to_R+' -e '+path_to_edge_list+' -D '+repr(D)
 	# if N_cells > 1000: 	
 	# 	print 'WARNING: the script "compute_mean_first_passage_times.py" will be vey slow \
-for your#  dataset of '+repr(N_cells)+' cells. To run this script, use the following:\n'
+	# for your  dataset of '+repr(N_cells)+' cells. To run this script, use the following:\n'
 	# 	print command,'\n'
 
 	# else:
